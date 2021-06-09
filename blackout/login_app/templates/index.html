@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blackout</title>
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" 
+        integrity="undefined" 
+        crossorigin="anonymous"
+    />
+</head>
+<body>
+    <div id="page" class="site">
+        <div class="site-inner">
+            <div class="site-header-wrapper">
+                <h1>Welcome to Blackout</h1>
+            </div>
+            <div id="content" class="site-content">
+                {% if messages %}
+                <ul class="messages">    
+                        {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                        {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="card; align-self-center">
+                    <main class="form-entry" style="width: 100%;">
+                        <h1 class="h1 mb-3 fw-normal">Registration</h1>
+                        <form action="/user/register" method="POST" id="regForm">
+                            <div id="usernameMsg"></div>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="first_name" class="form_control" placeholder="First Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="last_name" class="form_control" placeholder="Last Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="email" class="form_control" id="email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form_control" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="confirm_password" class="form_control" placeholder="Confirm Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </form>
+                    </main>
+                </div>
+                <div class="card; align-self-center">
+                    <main class="form-entry" style="width: 100%;">
+                        <h1 class="h1 mb-3 fw-normal">Login</h1>
+                        <form action="/user/login" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="email" class="form_control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form_control" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Log In</button>
+                        </form>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

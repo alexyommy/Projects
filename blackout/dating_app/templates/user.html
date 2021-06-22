@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "partials/header.html" %}
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        {% include "partials/navbar.html" %}
+    </div>
+    <h1>{{ user.first_name }} {{ user.last_name}}'s Profile</h1>
+    {% if profile.image %}
+    <img src="{{ profile.image.url }}" alt="connect" style="max-height:300px">
+    {% endif %}
+    <h2>Bio</h2>
+    {% for profile in user.user_profile.all %}
+        <h3>Gender: {{ profile.gender }}</h3>
+        <h3>Birthday: {{ profile.birthday }}</h3>
+        </br>
+        <h2>Interests</h2>
+        <h3>Color: {{ profile.color }}</h3>
+        <h3>Sport: {{ profile.sport }}</h3>
+        <h3>Favorite Movie: {{ profile.movie }}</h3>
+        <h3>Favorite Music Genre: {{ profile.music }}</h3>
+        <h3>Liked By:</h3>
+        {% for user_like in profile.user_likes.all %}
+        {{ user_like.first_name }} {{ user_like.last_name }}
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

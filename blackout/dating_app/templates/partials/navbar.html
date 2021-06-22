@@ -10,18 +10,21 @@
     >
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collaps navbar-collaps" id="navbarNav">
+    <div class="navbar navbar-expand-lg" id="navbarNav">
         <ul class="navbar-nav">
+        {%if 'user_id' in request.session%}
             <li class="nav-item">
                 <a class="nav-link" href="/dashboard">Home</a>
             </li>
-        {%if 'user_id' in request.session%}
-        <li class="nav-item">
-            <a class="nav-link" href="/dashboard">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/signout">Signout</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/matches/{{ request.session.user_id }}">Matches</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/dashboard/edit/{{ request.session.user_id }}">Edit Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Sign Out</a>
+            </li>
         {% endif %}
         </ul>
     </div>

@@ -12,13 +12,16 @@
         crossorigin="anonymous"
     />
 </head>
-<body>
+<body class="text-center; d-flex justify-content-center">
+    <div>
+        {% include "partials/navbar.html" %}
+    </div>
     <div id="page" class="site">
         <div class="site-inner">
             <div class="site-header-wrapper">
                 <h1>Welcome to Blackout</h1>
             </div>
-            <div id="content" class="site-content">
+            <div class="site-content">
                 {% if messages %}
                 <ul class="messages">    
                         {% for message in messages %}    
@@ -30,7 +33,6 @@
                     <main class="form-entry" style="width: 100%;">
                         <h1 class="h1 mb-3 fw-normal">Registration</h1>
                         <form action="/user/register" method="POST" id="regForm">
-                            <div id="usernameMsg"></div>
                             {% csrf_token %}
                             <div class="form-group">
                                 <input type="text" name="first_name" class="form_control" placeholder="First Name">

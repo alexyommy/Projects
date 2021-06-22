@@ -8,6 +8,103 @@
     <title>Dashboard</title>
 </head>
 <body>
-    {% include "partials.navbar.html" %}
+    <div>
+    {% include "partials/navbar.html" %}
+    </div>
+    <div class="container">
+        <h1>Blackout</h1>
+        <div class="card; align-self-center">
+            <main class="form-entry" style="width: 100%;">
+                {% if not creator %}
+                <h1 class="h1 mb-3 fw-normal">Tell Us About Yourself</h1>
+                <form action="/dashboard/submit" method="POST" id="interestForm">
+                    {% if messages %}
+                    <ul class="messages">    
+                        {% for message in messages %}    
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% csrf_token %}
+                    <div clas="form-group">
+                        <h5>Gender</h5>
+                        <select class="form_control" aria-label="Default select example" name="gender">
+                            <option selected>Select your Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Prefer not to say</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h5>Birthday</h5>
+                        <input type="date" name="birthday" class="form_control">
+                    </div>
+                    <div class="form-group">
+                        <h5>Favorite Color</h5>
+                        <select class="form_control" aria-label="Default select example" name="color">
+                        <option selected>Select your Favorite Color</option>
+                        <option value="red">Red</option>
+                        <option value="orange">Orange</option>
+                        <option value="yellow">Yellow</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="indigo">Indigo</option>
+                        <option value="violet">Violet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h5>Favorite Sport</h5>
+                        <input type="text" name="sport" class="form_control" placeholder="Favorite Sport">
+                    </div>
+                    <div class="form-group">
+                        <h5>Favorite Movie</h5>
+                        <input type="text" name="movie" class="form_control" placeholder="Favorite Movie">
+                    </div>
+                    <h5>Favorite Music Genre</h5>
+                    <div class="form-group">
+                        <input type="text" name="music" class="form_control" placeholder="Music Genre">
+                    </div>
+                    </br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                {% else %}
+                {% endif %}
+            </main>
+        </div>
+        </br>
+        <div class="card">
+            <h2>All Users</h2>
+            <table class="table table-dark table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Birthday</th>
+                        <th>Interests</th>
+                        <th>Like!</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for profile in profiles %}
+                    {% if profile.creator.id != request.session.user_id %}
+                    <tr>
+                        <td><a href="user/{{profile.id}}">{{profile.creator.first_name}} {{profile.creator.last_name}}</a></td>
+                        <td>{{profile.gender}}</td>
+                        <td>{{profile.birthday}}</td>
+                        <td>{{profile.color}}, {{profile.sport}}, {{profile.music}}</td>
+                        {% if this_user in profile.user_likes.all %}
+                            <td><a href="user/{{profile.id}}/dislike"><button type="submit" class="btn btn-danger">Unlike</button></a></td>
+                        {% else %}
+                        {% if this_user.id != profile.user_likes.id %}
+                        <td><a href="user/{{profile.id}}/like"><button type="submit" class="btn btn-primary">Like</button></a></td>
+                        {% endif %}
+                        {% endif %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

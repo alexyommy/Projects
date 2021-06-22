@@ -11,11 +11,11 @@ class UserManager(models.Manager):
         if not ALPHA_REGEX.match(post_data['first_name']):
             errors['first_name'] = "First name must only include alphabetical letters."
         elif len(post_data['first_name']) < 2:
-            errors['name'] = 'First name is too short.'
+            errors['first_name'] = 'First name is too short.'
         if not ALPHA_REGEX.match(post_data['last_name']):
             errors['last_name'] = "Last name must only include alphabetical letters."
         elif len(post_data['last_name']) < 2:
-            errors['name'] = 'Last name is too short.'
+            errors['last_name'] = 'Last name is too short.'
         if not EMAIL_REGEX.match(post_data['email']):
             errors['email'] = 'Email address provided is invalid'
         if len(post_data['password']) < 8:

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "partials/header.html" %}
+    <title>Document</title> 
+</head>
+<body>
+    <div>
+        {% include "partials/navbar.html" %}
+    </div>
+    <h1>Users that Liked You!</h2>
+        <h3>Liked By:</h3>
+        {% for profile in user.user_profile.all %}
+            {% for user_like in profile.user_likes.all %}
+            <table class="table table-info table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Check out their Profile!</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ user_like.first_name }} {{ user_like.last_name }}</td>
+                        <td><a href="/dashboard/user/{{user_like.id}}">Click Here</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            {% endfor %}
+        {% endfor %}
+</body>
+</html>
